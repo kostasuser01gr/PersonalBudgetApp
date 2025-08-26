@@ -1,0 +1,4 @@
+body {
+  @apply bg-gradient-to-br from-emerald-950 via-gray-950 to-black;
+  font-family: var(--font-geist-sans), var(--font-geist-mono), system-ui, sans-serif;
+}
