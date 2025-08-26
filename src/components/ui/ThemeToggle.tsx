@@ -1,15 +1,13 @@
 "use client";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="bg-black/20 p-2 rounded-full hover:bg-emerald-900/30 transition"
-      title="Εναλλαγή Θέματος"
+      className="bg-gray-700 text-white px-3 py-1 rounded-full text-xs"
     >
-      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === "dark" ? "🌙" : "☀️"}
     </button>
   );
 }
