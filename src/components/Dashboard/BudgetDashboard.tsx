@@ -11,8 +11,7 @@ import ExpenseForm from "@/components/ExpenseForm";
 import ExpensesTable from "@/components/ExpensesTable";
 import ExpenseChart from "@/components/ExpenseChart";
 import BudgetAlert from "@/components/BudgetAlert";
-
-type ExpenseRow = [string, string, string | number, string?, string?, string?, string?];
+import { ExpenseRow } from "@/types/expense";
 
 export default function BudgetDashboard() {
   const { colorClass } = useFontColor();
