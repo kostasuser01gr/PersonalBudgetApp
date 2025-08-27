@@ -1,7 +1,5 @@
 "use client";
-import { TrendingUp, PieChart } from "lucide-react";
 export default function StatsPanel() {
-  // Dummy data for UI
   const monthTotal = 620.40, food = 320, bills = 60, rent = 240;
   return (
     <div className="flex gap-8">
