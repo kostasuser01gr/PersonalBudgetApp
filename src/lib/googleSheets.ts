@@ -1,4 +1,5 @@
 import { google } from "googleapis";
+import { ExpenseRow } from "@/types/expense";
 
 const spreadsheetId = process.env.NEXT_PUBLIC_SPREADSHEET_ID!;
 
@@ -10,8 +11,6 @@ function getAuth() {
   });
 }
 
-export type ExpenseRow = [string, string, string, string, string, string, string];
-
 export async function getExpenses(): Promise<ExpenseRow[]> {
   const auth = getAuth();
   const sheets = google.sheets({ version: "v4", auth });
@@ -19,7 +18,6 @@ export async function getExpenses(): Promise<ExpenseRow[]> {
     spreadsheetId,
     range: "Expenses!A2:G",
   });
-  // Προσθέτουμε as για να βοηθήσουμε το TypeScript.
   return (res.data.values as ExpenseRow[]) || [];
 }
 
