@@ -1,10 +1,11 @@
-{
-  "extends": [
+// .eslintrc.js
+module.exports = {
+  extends: [
     "next",
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended"
   ],
-  "rules": {
+  rules: {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": "off"
   }
