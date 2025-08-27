@@ -12,22 +12,24 @@ import ExpensesTable from "@/components/ExpensesTable";
 import ExpenseChart from "@/components/ExpenseChart";
 import BudgetAlert from "@/components/BudgetAlert";
 
+type ExpenseRow = [string, string, string | number, string?, string?, string?, string?];
+
 export default function BudgetDashboard() {
   const { colorClass } = useFontColor();
   const queryClient = useQueryClient();
   const [dark, setDark] = useState(false);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<ExpenseRow[]>({
     queryKey: ["expenses"],
     queryFn: async () => {
       const res = await fetch("/api/expenses");
       const json = await res.json();
-      return json.data as any[][];
+      return (json.data ?? []) as ExpenseRow[];
     },
   });
 
   const mutation = useMutation({
-    mutationFn: async (row: any[]) => {
+    mutationFn: async (row: ExpenseRow) => {
       await fetch("/api/expenses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +45,7 @@ export default function BudgetDashboard() {
     },
   });
 
-  function exportToExcel(data: any[][]) {
+  function exportToExcel(data: ExpenseRow[]) {
     const ws = XLSX.utils.aoa_to_sheet([
       ["Ημερομηνία", "Κατηγορία", "Ποσό", "Περιγραφή", "Πληρωμή", "Κατάστημα"],
       ...(data || []),
