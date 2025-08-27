@@ -1,10 +1,16 @@
 "use client";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-export default function ExpenseChart({ data }: { data: any[][] }) {
+type ExpenseRow = [string, string, string | number, string?, string?, string?, string?];
+
+interface ExpenseChartProps {
+  data: ExpenseRow[];
+}
+
+export default function ExpenseChart({ data }: ExpenseChartProps) {
   const grouped = data.reduce((acc, cur) => {
     const cat = cur[1];
-    const amt = parseFloat(cur[2]);
+    const amt = parseFloat(String(cur[2]));
     acc[cat] = (acc[cat] || 0) + (isNaN(amt) ? 0 : amt);
     return acc;
   }, {} as Record<string, number>);
