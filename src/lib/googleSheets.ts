@@ -1,4 +1,3 @@
-// src/lib/googleSheets.ts
 import { google } from "googleapis";
 
 const spreadsheetId = process.env.NEXT_PUBLIC_SPREADSHEET_ID!;
@@ -11,19 +10,20 @@ function getAuth() {
   });
 }
 
-// Λήψη όλων των εξόδων
-export async function getExpenses() {
+export type ExpenseRow = [string, string, string, string, string, string, string];
+
+export async function getExpenses(): Promise<ExpenseRow[]> {
   const auth = getAuth();
   const sheets = google.sheets({ version: "v4", auth });
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: "Expenses!A2:G", // Υποθέτουμε ότι τα δεδομένα είναι εδώ
+    range: "Expenses!A2:G",
   });
-  return res.data.values || [];
+  // Προσθέτουμε as για να βοηθήσουμε το TypeScript.
+  return (res.data.values as ExpenseRow[]) || [];
 }
 
-// Προσθήκη εξόδου
-export async function addExpense(row: any[]) {
+export async function addExpense(row: ExpenseRow) {
   const auth = getAuth();
   const sheets = google.sheets({ version: "v4", auth });
   await sheets.spreadsheets.values.append({
