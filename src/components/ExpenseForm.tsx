@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-
-type ExpenseRow = [string, string, string, string, string, string, string];
+import { ExpenseRow } from "@/types/expense";
 
 type Props = {
   onAdd: (row: ExpenseRow) => Promise<void>;
