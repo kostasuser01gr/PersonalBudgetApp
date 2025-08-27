@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 
+type ExpenseRow = [string, string, string, string, string, string, string];
+
 type Props = {
-  onAdd: (row: any[]) => Promise<void>;
+  onAdd: (row: ExpenseRow) => Promise<void>;
   loading?: boolean;
 };
 
@@ -16,7 +18,6 @@ export default function ExpenseForm({ onAdd, loading = false }: Props) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    // Μπορείς να ελέγξεις αν loading, αν χρειάζεται: if (loading) return;
     await onAdd([date, category, amount, desc, method, vendor, ""]);
     setDate(""); setCategory(""); setAmount(""); setDesc(""); setMethod(""); setVendor("");
   }
